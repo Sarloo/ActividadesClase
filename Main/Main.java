@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     
-   /**
+    /**
      * Función recursiva para sumar los dígitos de un número
      * @param n número entero positivo
      * @return suma de todos los dígitos del número
@@ -19,20 +19,39 @@ public class Main {
         }
     }
     
+    /**
+     * Función recursiva para invertir una cadena de texto
+     * @param cadena la cadena a invertir
+     * @return cadena invertida
+     */
+    public static String invertirCadena(String cadena) {
+        // Caso base: si la cadena está vacía o tiene un solo carácter
+        if (cadena.isEmpty() || cadena.length() == 1) {
+            return cadena;
+        } else {
+            // Caso recursivo: último carácter + invertir el resto de la cadena
+            return cadena.charAt(cadena.length() - 1) + 
+                   invertirCadena(cadena.substring(0, cadena.length() - 1));
+        }
+    }
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
         int numero;
+        String texto;
         
         do {
             System.out.println("\n=== MENÚ DE RECURSIVIDAD ===");
             System.out.println("1. Sumar dígitos de un número");
             System.out.println("2. Calcular factorial");
             System.out.println("3. Calcular número de Fibonacci");
-            System.out.println("4. Salir");
+            System.out.println("4. Invertir una cadena de texto");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
             
             opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
             
             switch (opcion) {
                 case 1:
@@ -67,21 +86,28 @@ public class Main {
                     break;
                     
                 case 4:
+                    System.out.print("Ingrese una cadena de texto: ");
+                    texto = scanner.nextLine();
+                    String textoInvertido = invertirCadena(texto);
+                    System.out.println("Cadena original: " + texto);
+                    System.out.println("Cadena invertida: " + textoInvertido);
+                    break;
+                    
+                case 5:
                     System.out.println("¡Hasta luego!");
                     break;
                     
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione 1, 2, 3 o 4.");
+                    System.out.println("Opción no válida. Por favor, seleccione 1, 2, 3, 4 o 5.");
                     break;
             }
             
-            if (opcion != 4) {
+            if (opcion != 5) {
                 System.out.print("\nPresione Enter para continuar...");
-                scanner.nextLine(); // Limpiar buffer
                 scanner.nextLine(); // Esperar a que el usuario presione Enter
             }
             
-        } while (opcion != 4);
+        } while (opcion != 5);
         
         scanner.close();
     }
