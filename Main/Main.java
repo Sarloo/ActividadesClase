@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     
-    /**
+   /**
      * Función recursiva para sumar los dígitos de un número
      * @param n número entero positivo
      * @return suma de todos los dígitos del número
@@ -35,6 +35,29 @@ public class Main {
         }
     }
     
+    /**
+     * Función recursiva para contar vocales en una cadena
+     * @param cadena la cadena a analizar
+     * @return cantidad de vocales en la cadena
+     */
+    public static int contarVocales(String cadena) {
+        // Caso base: cadena vacía
+        if (cadena.isEmpty()) {
+            return 0;
+        } else {
+            // Convertir el primer carácter a minúscula para simplificar la comparación
+            char primerCaracter = Character.toLowerCase(cadena.charAt(0));
+            
+            // Verificar si es vocal
+            boolean esVocal = (primerCaracter == 'a' || primerCaracter == 'e' || 
+                              primerCaracter == 'i' || primerCaracter == 'o' || 
+                              primerCaracter == 'u');
+            
+            // Caso recursivo: contar si es vocal + contar vocales en el resto de la cadena
+            return (esVocal ? 1 : 0) + contarVocales(cadena.substring(1));
+        }
+    }
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -47,7 +70,8 @@ public class Main {
             System.out.println("2. Calcular factorial");
             System.out.println("3. Calcular número de Fibonacci");
             System.out.println("4. Invertir una cadena de texto");
-            System.out.println("5. Salir");
+            System.out.println("5. Contar vocales en una cadena");
+            System.out.println("6. Salir");
             System.out.print("Seleccione una opción: ");
             
             opcion = scanner.nextInt();
@@ -94,20 +118,27 @@ public class Main {
                     break;
                     
                 case 5:
+                    System.out.print("Ingrese una cadena de texto: ");
+                    texto = scanner.nextLine();
+                    int cantidadVocales = contarVocales(texto);
+                    System.out.println("La cadena \"" + texto + "\" tiene " + cantidadVocales + " vocal(es)");
+                    break;
+                    
+                case 6:
                     System.out.println("¡Hasta luego!");
                     break;
                     
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione 1, 2, 3, 4 o 5.");
+                    System.out.println("Opción no válida. Por favor, seleccione 1, 2, 3, 4, 5 o 6.");
                     break;
             }
             
-            if (opcion != 5) {
+            if (opcion != 6) {
                 System.out.print("\nPresione Enter para continuar...");
                 scanner.nextLine(); // Esperar a que el usuario presione Enter
             }
             
-        } while (opcion != 5);
+        } while (opcion != 6);
         
         scanner.close();
     }
